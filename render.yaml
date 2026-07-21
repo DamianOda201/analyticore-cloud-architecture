@@ -5,7 +5,6 @@
 databases:
   - name: analyticore-db
     databaseName: analyticore
-    user: postgres
     plan: free
 
 services:
