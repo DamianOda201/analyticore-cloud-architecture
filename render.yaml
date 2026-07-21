@@ -50,11 +50,10 @@ services:
 
   # 3. Aplicación Web Frontend (React + CDN Estática en Render)
   - type: web
-    name: analyticore-frontend
+    name: analyticore-ui
     runtime: static
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: ./frontend/dist
-    plan: free
     envVars:
       - key: VITE_API_URL
         value: https://analyticore-python-gateway.onrender.com/api/v1/jobs
