@@ -48,15 +48,17 @@ services:
       - key: JAVA_SERVICE_URL
         value: https://analyticore-java-worker.onrender.com/api/v1/analyze
 
-  # 3. Aplicación Web Frontend (React + Nginx - Clean UI)
-  - type: web
+  # 3. Aplicación Web Frontend (React + CDN Estática en Render)
+  - type: static
     name: analyticore-frontend
-    runtime: docker
-    dockerfilePath: Dockerfile
-    dockerContext: ./frontend
+    rootDir: ./frontend
+    buildCommand: npm install && npm run build
+    publishDir: ./dist
     plan: free
     envVars:
-      - key: PORT
-        value: 80
       - key: VITE_API_URL
         value: https://analyticore-python-gateway.onrender.com/api/v1/jobs
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
