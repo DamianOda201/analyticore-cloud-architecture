@@ -18,7 +18,7 @@ El repositorio cumple con la estructura exacta solicitada:
 ### 2. Diagrama de Componentes (Arquitectura General y Contenedores)
 El diagrama muestra los contenedores Docker independientes, el servidor Nginx, las comunicaciones mediante APIs REST y el almacenamiento externo en la base de datos gestionada PostgreSQL:
 
-![Diagrama de Componentes AnalytiCore](docs/diagrama_componentes.jpg)
+![Diagrama de Componentes AnalytiCore](diagramas/diagrama_componentes.jpg)
 
 ---
 
@@ -27,19 +27,19 @@ El diagrama muestra los contenedores Docker independientes, el servidor Nginx, l
 Para cada uno de los 3 componentes se detalla su arquitectura interna respetando la **Regla de Dependencia** (las dependencias apuntan hacia la Capa de Dominio central):
 
 #### 🐍 Servicio de Submisión (`python-service`)
-![Diagrama de Capas - Python Service](docs/diagrama_capas_python.jpg)
+![Diagrama de Capas - Python Service](diagramas/diagrama_capas_python.jpg)
 
 #### ☕ Servicio de Análisis Worker (`java-service`)
-![Diagrama de Capas - Java Service](docs/diagrama_capas_java.jpg)
+![Diagrama de Capas - Java Service](diagramas/diagrama_capas_java.jpg)
 
 #### 🌐 Frontend Web (`frontend`)
-![Diagrama de Capas - Frontend](docs/diagrama_capas_frontend.jpg)
+![Diagrama de Capas - Frontend](diagramas/diagrama_capas_frontend.jpg)
 
 ---
 
 ### 4. Informe Ejecutivo
-El documento completo con la extensión máxima exigida (1 página) justificando el problema de negocio, la propuesta técnica, la escalabilidad elástica, la mantenibilidad de la Arquitectura Limpia y los beneficios de usar equipos políglotas se encuentra en:
-👉 **[`docs/informe_ejecutivo.md`](docs/informe_ejecutivo.md)**
+El documento formal ejecutivo con la extensión máxima exigida (1 página) justificando el problema de negocio, la propuesta técnica, la escalabilidad elástica, la mantenibilidad de la Arquitectura Limpia y los beneficios de usar equipos políglotas se encuentra en la carpeta:
+👉 **[`Informe/`](Informe/)**
 
 ---
 

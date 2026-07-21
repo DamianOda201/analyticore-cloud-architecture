@@ -25,3 +25,8 @@ venv/
 *.swo
 .DS_Store
 Thumbs.db
+
+# Carpetas y archivos internos de guía (No subir al repositorio público)
+Enunciado/
+scratch/
+.system_generated/
