@@ -22,6 +22,18 @@ services:
         fromDatabase:
           name: analyticore-db
           property: connectionString
+      - key: DB_HOST
+        fromDatabase:
+          name: analyticore-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: analyticore-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: analyticore-db
+          property: database
       - key: DB_USER
         fromDatabase:
           name: analyticore-db
@@ -45,6 +57,26 @@ services:
         fromDatabase:
           name: analyticore-db
           property: connectionString
+      - key: DB_HOST
+        fromDatabase:
+          name: analyticore-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: analyticore-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: analyticore-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: analyticore-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: analyticore-db
+          property: password
       - key: JAVA_SERVICE_URL
         value: https://analyticore-java-worker.onrender.com/api/v1/analyze
 

@@ -10,7 +10,7 @@ spring:
   
   # Conexión externa a la base de datos PostgreSQL en Render / Local
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/analyticore}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:analyticore}
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
