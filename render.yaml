@@ -59,3 +59,5 @@ services:
     envVars:
       - key: PORT
         value: 80
+      - key: VITE_API_URL
+        value: https://analyticore-python-gateway.onrender.com/api/v1/jobs

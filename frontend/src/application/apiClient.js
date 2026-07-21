@@ -6,14 +6,25 @@
  * capa de red REST.
  */
 
-const BASE_URL = import.meta.env.VITE_API_URL || '/api/v1/jobs';
+const getBaseUrl = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  // Si estamos en producción dentro de Render (ej: analyticore-frontend.onrender.com)
+  if (typeof window !== 'undefined' && window.location.hostname.includes('onrender.com')) {
+    return window.location.origin.replace('-frontend', '-python-gateway') + '/api/v1/jobs';
+  }
+  // Fallback local (Nginx proxy en localhost)
+  return '/api/v1/jobs';
+};
 
 export const ApiClient = {
   /**
    * Envía un nuevo texto al servicio Python y retorna el jobId.
    */
   async submitJob(text) {
-    const response = await fetch(BASE_URL, {
+    const baseUrl = getBaseUrl();
+    const response = await fetch(baseUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -33,7 +44,8 @@ export const ApiClient = {
    * Consulta el estado del trabajo usando su jobId (para Polling).
    */
   async getJobStatus(jobId) {
-    const response = await fetch(`${BASE_URL}/${jobId}`);
+    const baseUrl = getBaseUrl();
+    const response = await fetch(`${baseUrl}/${jobId}`);
     if (!response.ok) {
       throw new Error(`No se pudo obtener el estado del Job: ${jobId}`);
     }
