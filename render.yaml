@@ -49,11 +49,11 @@ services:
         value: https://analyticore-java-worker.onrender.com/api/v1/analyze
 
   # 3. Aplicación Web Frontend (React + CDN Estática en Render)
-  - type: static_site
+  - type: web
     name: analyticore-frontend
-    rootDir: ./frontend
-    buildCommand: npm install && npm run build
-    publishDir: ./dist
+    runtime: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist
     plan: free
     envVars:
       - key: VITE_API_URL
