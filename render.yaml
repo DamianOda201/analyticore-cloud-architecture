@@ -12,7 +12,7 @@ services:
   - type: web
     name: analyticore-java-worker
     runtime: docker
-    dockerfilePath: Dockerfile
+    dockerfilePath: ./java-service/Dockerfile
     dockerContext: ./java-service
     plan: free
     envVars:
@@ -47,7 +47,7 @@ services:
   - type: web
     name: analyticore-python-gateway
     runtime: docker
-    dockerfilePath: Dockerfile
+    dockerfilePath: ./python-service/Dockerfile
     dockerContext: ./python-service
     plan: free
     envVars:
