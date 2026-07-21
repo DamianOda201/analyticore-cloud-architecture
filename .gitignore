@@ -1,0 +1,27 @@
+# Node / Frontend
+node_modules/
+dist/
+build/
+*.log
+
+# Java / Maven
+target/
+*.class
+*.jar
+!app.jar
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+venv/
+.venv/
+
+# IDE / Entornos
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

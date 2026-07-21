@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  # 1. Base de Datos Externa (Stateless storage y configuración 12-Factor)
+  postgres:
+    image: postgres:15-alpine
+    container_name: analyticore-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: analyticore
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d analyticore"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - analyticore-network
+
+  # 2. Servicio Worker Java (Spring Boot - Clean Architecture)
+  java-service:
+    build:
+      context: ./java-service
+      dockerfile: Dockerfile
+    container_name: analyticore-java-worker
+    restart: on-failure
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: 8081
+      DATABASE_URL: jdbc:postgresql://postgres:5432/analyticore
+      DB_USER: postgres
+      DB_PASSWORD: postgrespassword
+    ports:
+      - "8081:8081"
+    networks:
+      - analyticore-network
+
+  # 3. Servicio de Submisión Python (FastAPI - Clean Architecture & Orchestrator)
+  python-service:
+    build:
+      context: ./python-service
+      dockerfile: Dockerfile
+    container_name: analyticore-python-gateway
+    restart: on-failure
+    depends_on:
+      postgres:
+        condition: service_healthy
+      java-service:
+        condition: service_started
+    environment:
+      PORT: 8000
+      DATABASE_URL: postgresql://postgres:postgrespassword@postgres:5432/analyticore
+      JAVA_SERVICE_URL: http://java-service:8081/api/v1/analyze
+    ports:
+      - "8000:8000"
+    networks:
+      - analyticore-network
+
+  # 4. Frontend Web (React SPA + Nginx)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: analyticore-frontend
+    restart: always
+    depends_on:
+      - python-service
+    ports:
+      - "80:80"
+    networks:
+      - analyticore-network
+
+networks:
+  analyticore-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
